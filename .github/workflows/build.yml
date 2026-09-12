@@ -300,7 +300,7 @@ jobs:
           -b "$BD" \
           -- \
           "-DZMK_CONFIG=$CONFIG_DIR" \
-          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-pmw3610-driver;$GITHUB_WORKSPACE/prospector-zmk-module" \
+          "-DZMK_EXTRA_MODULES=$GITHUB_WORKSPACE/boards;$GITHUB_WORKSPACE/zmk-driver-pmw3360;$GITHUB_WORKSPACE/prospector-zmk-module" \
           "-DSHIELD=$SH" \
           $EXTRA_CONF_OPTION \
           $EXTRA_DTC_OVERLAY_OPTION \

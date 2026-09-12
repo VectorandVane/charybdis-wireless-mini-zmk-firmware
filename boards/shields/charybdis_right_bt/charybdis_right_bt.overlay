@@ -1,5 +1,5 @@
 #include "../charybdis_common/charybdis.dtsi"
-#include "../charybdis_trackball/charybdis_pmw3610.dtsi"
+#include "../charybdis_trackball/charybdis_pmw3360.dtsi"
 #include "../../config/trackball/charybdis_pointer.dtsi"
 
 // The matrix transform is 6 columns over because the left half is 6 columns wide.

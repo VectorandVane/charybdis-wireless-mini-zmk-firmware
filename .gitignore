@@ -3,7 +3,7 @@ zmk/
 zephyr/
 modules/
 optional/
-zmk-pmw3610-driver/
+zmk-driver-pmw3360/
 prospector-zmk-module
 local-build/logs.txt
 scripts/__pycache__

@@ -4,16 +4,16 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: 280Zo
       url-base: https://github.com/280Zo
-    - name: badjeff
-      url-base: https://github.com/badjeff
+    - name: george-norton
+      url-base: https://github.com/george-norton
 
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: badjeff
+    - name: zmk-driver-pmw3360
+      remote: george-norton
       revision: main
     - name: prospector-zmk-module
       remote: 280Zo

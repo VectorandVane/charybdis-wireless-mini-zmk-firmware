@@ -62,7 +62,7 @@ Follow instructions [here](https://zmk.dev/docs/development/usb-logging) to see 
 
 Since this is a split keyboard you'll have to change the tty device depending on what you want log output from (e.g. `ttyACM0` for dongle, `ttyACM1` for right side, and `ttyACM2` for left side.
 
-To enable PMW3610 sensor debug logging, also uncomment `CONFIG_PMW3610_ALT_LOG_LEVEL_DBG=y` in the relevant shield conf.
+To enable trackball SPI bus debug logging, also uncomment `CONFIG_SPI_LOG_LEVEL_DBG=y` in the relevant shield conf.
 
 ### Local Module Testing
 
