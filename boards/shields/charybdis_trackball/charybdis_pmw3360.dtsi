@@ -3,7 +3,7 @@
  *   MISO   -> D1  (P0.06)  -- this pad previously carried the PMW3610's MOTION line
  *   MOSI   -> D2  (P0.17)  -- this pad previously carried the PMW3610's shared SDIO line
  *   NCS    -> D3  (P0.20)
- *   MOTION -> D14 (P1.11)  -- spare GPIO, required by this driver's binding
+ *   MOTION -> D9  (P1.06)  -- the unused R5 matrix row pad, required by this driver's binding
  * RESET is not wired: this driver has no reset-gpios, the sensor is reset
  * purely over SPI (NCS toggle + power-up-reset register write). Tie RESET
  * to VDDIO on the sensor board itself rather than leaving it floating.
@@ -43,7 +43,7 @@
         compatible = "pixart,pmw3360";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        irq-gpios = <&gpio1 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
