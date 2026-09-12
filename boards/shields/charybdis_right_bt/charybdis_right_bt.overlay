@@ -7,10 +7,6 @@
 	col-offset = <6>;
 };
 
-&five_column_transform {
-	col-offset = <5>;
-};
-
 // KSCAN matrix
 &kscan0 {
 	compatible = "zmk,kscan-gpio-matrix";
