@@ -19,7 +19,7 @@ include:
       - charybdis_right_bt
     keymap:
       - qwerty
-      - colemak_dh
+      # - colemak_dh
       # - canary
       # - focal
       # - graphite
