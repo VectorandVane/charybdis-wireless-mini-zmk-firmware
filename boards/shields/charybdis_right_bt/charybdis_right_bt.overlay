@@ -32,8 +32,13 @@
 		;
 };
 
+&spi0 {
+	status = "okay";
+};
+
 /* enable the listener on central */
 &trackball_listener {
+	compatible = "zmk,input-listener";
     status = "okay";
     device = <&trackball>;
 };
