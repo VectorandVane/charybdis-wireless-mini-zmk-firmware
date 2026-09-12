@@ -15,6 +15,12 @@ we found two things worth patching in the vendored driver source itself:
 2. No visibility: the driver never logs the computed X/Y delta, so there
    was no way to tell whether real per-sample motion deltas were being
    computed (and just not reaching HID) versus always coming back zero.
+   (Confirmed via this patch: always zero, even while moving the ball.)
+   Now also logs the raw Motion status byte (bit7/0x80 = MOT, set only
+   when the chip itself measured real displacement) to tell apart "IRQ
+   firing from real chip-detected motion that nonetheless nets to zero"
+   from "IRQ firing from something else entirely" (electrical noise, a
+   bad/floating connection) with MOT never actually set.
 
 Delete this script (and the CI step that calls it) once the PMW3360 issue
 is resolved - it patches an external module, not our own code, and isn't
@@ -75,10 +81,16 @@ def main() -> int:
         return 1
     src = src.replace(old_write, new_write, 1)
 
-    # --- Patch 2: log the computed delta on every sample ------------------
+    # --- Patch 2: log the computed delta AND the raw Motion status byte --
+    # buf[0] is the burst-read Motion register mirror (PMW3360 datasheet:
+    # bit7/0x80 = MOT, set only when the chip itself measured non-zero
+    # displacement since the last read). If MOT is never set on samples
+    # triggered by touching/moving the ball, the IRQ line is firing from
+    # something other than genuine chip-detected motion (electrical noise,
+    # a bad/floating connection) rather than an optics/tracking problem.
     old_check = "    if (x != 0 || y != 0) {\n        if (input_mode != SCROLL) {"
     new_check = (
-        "    LOG_INF(\"TEMP-DEBUG raw delta x=%d y=%d\", x, y);\n"
+        "    LOG_INF(\"TEMP-DEBUG raw delta x=%d y=%d motion_reg=0x%02x\", x, y, buf[0]);\n"
         "    if (x != 0 || y != 0) {\n        if (input_mode != SCROLL) {"
     )
     if old_check not in src:
