@@ -243,7 +243,14 @@ jobs:
         # charybdis_right_bt is the central in BT split mode.
         # charybdis_dongle is the central in dongle mode.
         # Peripherals (left_bt, left_dongle, right_dongle) don't need it.
-        if [[ "$TARGET" == "charybdis_right_bt" || "$TARGET" == "charybdis_dongle" ]]; then
+        #
+        # TEMP: also apply zmk-usb-logging on charybdis_right_bt only, to get a
+        # USB serial console for diagnosing the PMW3360 sensor. Remove the
+        # ";zmk-usb-logging" bit once that's sorted - it costs extra RAM/flash
+        # and battery life, and shouldn't ship in the normal build long-term.
+        if [[ "$TARGET" == "charybdis_right_bt" ]]; then
+          SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart;zmk-usb-logging"
+        elif [[ "$TARGET" == "charybdis_dongle" ]]; then
           SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
         else
           SNIPPET_OPTION=""
