@@ -15,43 +15,6 @@
 #include "keymap_features/combos.dtsi"
 
 / {
-    /* input config for mouse move mode */
-
-    trackball_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <0 1 2 3 4 5 6>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        scale-multiplier = <1>;
-        scale-divisor = <2>;
-
-        // bindings = <&ib_toggle_layer 7>;
-    };
-
-    /* input config for mouse scroll mode */
-
-    trackball_scroll_listener {
-        compatible = "zmk,input-behavior-listener";
-        device = <&vtrackball>;
-        layers = <7>;
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_MISC>;
-        y-input-code = <INPUT_REL_WHEEL>;
-        y-invert;
-        bindings = <&ib_wheel_scaler 1 14>;
-    };
-
-    /* define a resolution down scaler only for INPUT_REL_WHEEL */
-
-    ib_wheel_scaler: ib_wheel_scaler {
-        compatible = "zmk,input-behavior-scaler";
-        #binding-cells = <2>;
-        evt-type = <INPUT_EV_REL>;
-        input-code = <INPUT_REL_WHEEL>;
-    };
-
 /* --- KEYMAP CONFIG --- */
 // ╭──────┬──────┬──────┬──────┬──────┬──────╮  ╭──────┬──────┬──────┬──────┬──────┬──────╮
 //    00     01     02     03    04      05        06     07     08     09     10     11
