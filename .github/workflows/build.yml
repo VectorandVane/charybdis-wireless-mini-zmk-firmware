@@ -201,17 +201,6 @@ jobs:
         # echo "West workspace ready. Project structure:"
         # west list
 
-    # ───────── TEMP: patch zmk-pmw3360-driver for PMW3360 diagnosis ─────────
-    # See scripts/patch_pmw3360_debug.py for what/why. Remove this step (and
-    # that script, and the CONFIG_PMW3360_LOG_LEVEL_DBG=y / usb-logging
-    # snippet it's paired with) once the sensor is confirmed working.
-    - name: Patch zmk-pmw3360-driver with temporary debug logging
-      shell: bash
-      run: |
-        set -euo pipefail
-        python3 "$GITHUB_WORKSPACE/scripts/patch_pmw3360_debug.py" \
-          "$GITHUB_WORKSPACE/zmk-pmw3360-driver/src/pmw3360.c"
-
     # ───────── copy charybdis/ conf files to top-level config ─────────
     # ZMK searches for ${ZMK_CONFIG}/<shield>.conf and prefix variants,
     # it does not descend into subdirectories, so charybdis/*.conf must be copied up.
@@ -254,14 +243,7 @@ jobs:
         # charybdis_right_bt is the central in BT split mode.
         # charybdis_dongle is the central in dongle mode.
         # Peripherals (left_bt, left_dongle, right_dongle) don't need it.
-        #
-        # TEMP: also apply zmk-usb-logging on charybdis_right_bt only, to get a
-        # USB serial console for diagnosing the PMW3360 sensor. Remove the
-        # ";zmk-usb-logging" bit once that's sorted - it costs extra RAM/flash
-        # and battery life, and shouldn't ship in the normal build long-term.
-        if [[ "$TARGET" == "charybdis_right_bt" ]]; then
-          SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart;zmk-usb-logging"
-        elif [[ "$TARGET" == "charybdis_dongle" ]]; then
+        if [[ "$TARGET" == "charybdis_right_bt" || "$TARGET" == "charybdis_dongle" ]]; then
           SNIPPET_OPTION="-DSNIPPET=studio-rpc-usb-uart"
         else
           SNIPPET_OPTION=""

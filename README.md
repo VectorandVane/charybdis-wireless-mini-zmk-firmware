@@ -52,7 +52,7 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
 
 **Other Highlights**
 - This repo now includes builds for the **[Prospector ZMK screen dongle](https://github.com/carrefinho/prospector)**.
-  - Suppoert for the Nice!Nano v2 has been added to the firmware options.
+  - Support for the Nice!Nano v2 has been added to the firmware options.
   - The prospector case has been adapted in [OnShape](https://cad.onshape.com/documents/1ab8632c0729c14a80991694/w/0a5575e0aa91142d15642877/e/053f9ce9786904291254a911) to fit the Nice!Nano v2.
   Options are also available for the smaller APDS9960 ambient light sensor variant, and a lower-cost Waveshare non-touch screen option (SKU 24382)
   - APDS9960 sensor builds use a custom Prospector module ALS-only driver that works with the various APDS9960 sensor types.
@@ -63,7 +63,7 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
   - Tap: Left mouse click
   - Tap & Hold: Layer 3 (symbols) while the key is held
   - Double-Tap & Hold: holds the left mouse button
-  - Tripple-Tap: Double mouse click
+  - Triple-Tap: Double mouse click
 - **K38 - Multifunction**
   - Tap: Backspace
   - Hold: Layer 1 (numbers) while the key is held
@@ -131,6 +131,14 @@ The main build families are:
 - `bt`: Bluetooth split builds
 - `dongle_standard_nano`: the default no-screen dongle builds
 - `dongle_prospector_*`: screen-enabled dongle builds using the Prospector adapter
+
+> [!NOTE]
+> The current [build.yaml](build.yaml) only has a `bt` entry enabled - the
+> dongle build families aren't present in the matrix right now, so there's
+> nothing to comment out yet if you want one. All the shields, Kconfig, and
+> overlays for them still exist under `boards/shields/charybdis_dongle*`,
+> so add a matching `include` entry (mirroring the `bt` entry's shape) to
+> bring a dongle build back.
 
 For any of the Prospector dongle firmwares, there are additional customization options.
 
