@@ -70,7 +70,7 @@ To see all the layers check out the [full render](keymap-drawer/all_layers/all_l
   - Quick tap, then hold: Repeats Backspace instead of dropping into Layer 1
 - **Bluetooth profile quick-swap:** Jump to the EXTRAS layer and tap the dedicated BT-select keys to pair or switch among up to four saved hosts (plus BT CLR to forget all).
 - **Prospector display brightness controls:** Prospector builds can toggle between ambient-light and manual brightness control from the EXTRAS layer. On Colemak-DH, K04 brightens, K15 toggles auto/manual, and K16 dims.
-- **PMW3360 trackball sensor driver:** Provided by [george-norton](https://github.com/george-norton/zmk-driver-pmw3360)
+- **PMW3360 trackball sensor driver:** Provided by [KOHSUK](https://github.com/KOHSUK/zmk-pmw3360-driver) (branch `pmw3360`), including the SROM firmware upload the PMW3360 requires to track at all
   - This board uses a PMW3360 sensor rather than the PMW3610 the upstream `280Zo/charybdis-wireless-mini-zmk-firmware` project targets - see `boards/shields/charybdis_trackball/charybdis_pmw3360.dtsi` for the wiring notes
 - **Hold-tap side-aware triggers:** Each HRM key only becomes a modifier if the opposite half is active, preventing accidental holds while one-handed.
 - **Timeless HRM with selective exceptions:** Base home-row mods use the timeless-style `balanced + hold-trigger-on-release` setup, while A, I, and O (on a Colemak-DH layout) keep tap-preferred variants to reduce accidental mod triggers during fast rolls.
@@ -185,7 +185,7 @@ To build the firmware follow either of the build processes below:
 
 ## Credits
 
-- [george-norton](https://github.com/george-norton) for the PMW3360 ZMK driver used as the basis for the trackball sensor integration
+- [KOHSUK](https://github.com/KOHSUK) for the PMW3360 ZMK driver used as the basis for the trackball sensor integration
 - [carrefinho](https://github.com/carrefinho) for the original [Prospector](https://github.com/carrefinho/prospector) hardware and the [Prospector ZMK module](https://github.com/carrefinho/prospector-zmk-module/tree/feat/new-status-screens) this repo adapts for Charybdis dongles
 - [eigatech](https://github.com/eigatech) for prior Charybdis dongle work and useful reference patterns around split trackball/input-listener integration
 - [nickcoutsos](https://github.com/nickcoutsos/keymap-editor) for the browser-based keymap editor workflow

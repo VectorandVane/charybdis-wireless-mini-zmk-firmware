@@ -1,14 +1,15 @@
 /* Sensor wiring (nice!nano D-pin labels, per PCB GPIO map):
- *   SCLK -> D0 (P0.08)
- *   MISO -> D1 (P0.06)  -- this pad previously carried the PMW3610's MOTION line
- *   MOSI -> D2 (P0.17)  -- this pad previously carried the PMW3610's shared SDIO line
- *   NCS  -> D3 (P0.20)
- * MOTION and RESET are not wired:
- *   - RESET has no GPIO in this driver; the sensor is reset purely over SPI
- *     (NCS toggle + power-up-reset register write), so tie RESET to VDDIO
- *     on the sensor board itself rather than leaving it floating.
- *   - MOTION would need a spare GPIO run to the sensor (D14/D15/D16 are free
- *     on this PCB) - until that's wired, the driver polls over SPI instead.
+ *   SCLK   -> D0  (P0.08)
+ *   MISO   -> D1  (P0.06)  -- this pad previously carried the PMW3610's MOTION line
+ *   MOSI   -> D2  (P0.17)  -- this pad previously carried the PMW3610's shared SDIO line
+ *   NCS    -> D3  (P0.20)
+ *   MOTION -> D14 (P1.11)  -- spare GPIO, required by this driver's binding
+ * RESET is not wired: this driver has no reset-gpios, the sensor is reset
+ * purely over SPI (NCS toggle + power-up-reset register write). Tie RESET
+ * to VDDIO on the sensor board itself rather than leaving it floating.
+ *
+ * CPI and axis orientation (invert/rotate) are Kconfig options for this
+ * driver, not devicetree properties - see the shield's .conf file.
  */
 &pinctrl {
     spi0_default: spi0_default {
@@ -42,20 +43,7 @@
         compatible = "pixart,pmw3360";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        cpi = <600>;
-
-        /* No irq-gpios: MOTION isn't wired yet, so this polls over SPI
-           instead of interrupt-driven. Wire MOTION to a spare GPIO
-           (D14/D15/D16 are free) and add irq-gpios here to switch to
-           interrupt-driven reporting and save battery. */
-        polling-interval = <4000>;
-
-        /* Sensor orientation is untested on this hardware - start here,
-           then adjust rotate-90/180/270 and invert-x/invert-y once you
-           can see which way cursor movement actually goes. */
-        // invert-x;
-        // invert-y;
-        // rotate-90;
+        irq-gpios = <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
