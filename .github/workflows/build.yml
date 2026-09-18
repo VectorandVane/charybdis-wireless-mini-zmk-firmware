@@ -201,6 +201,17 @@ jobs:
         # echo "West workspace ready. Project structure:"
         # west list
 
+    # ───────── fix zmk-pmw3360-driver CPI-caching bug ─────────
+    # See scripts/patch_pmw3360_cpi_cache.py for what/why: upstream never
+    # caches the configured CPI, so it re-writes the CPI register over SPI
+    # on every single motion report instead of once at init.
+    - name: Patch zmk-pmw3360-driver CPI caching bug
+      shell: bash
+      run: |
+        set -euo pipefail
+        python3 "$GITHUB_WORKSPACE/scripts/patch_pmw3360_cpi_cache.py" \
+          "$GITHUB_WORKSPACE/zmk-pmw3360-driver/src/pmw3360.c"
+
     # ───────── copy charybdis/ conf files to top-level config ─────────
     # ZMK searches for ${ZMK_CONFIG}/<shield>.conf and prefix variants,
     # it does not descend into subdirectories, so charybdis/*.conf must be copied up.
