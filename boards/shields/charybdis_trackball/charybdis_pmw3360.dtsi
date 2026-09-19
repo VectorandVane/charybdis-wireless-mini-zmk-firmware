@@ -42,7 +42,13 @@
         status = "okay";
         compatible = "pixart,pmw3360";
         reg = <0>;
-        spi-max-frequency = <2000000>;
+        // Dropped from 2MHz (PMW3360 supports up to 10MHz) for extra signal
+        // margin on this build's ~150mm sensor wiring run - unshielded SPI
+        // at speed over that kind of length is a plausible source of
+        // occasional corrupted burst reads. If jumpiness is unchanged after
+        // this, wiring speed isn't the bottleneck and the cause is
+        // elsewhere (e.g. ball surface tracking quality).
+        spi-max-frequency = <1000000>;
         irq-gpios = <&gpio1 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
